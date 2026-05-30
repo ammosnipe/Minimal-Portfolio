@@ -482,8 +482,21 @@ input[type=file]{display:none;}
 <section id="designs-section">
   <div class="sec-label sr" data-n="04">Visual Work</div>
   <h2 class="sec-title sr">MY<br><em>DESIGNS</em></h2>
-  <p class="designs-intro sr">Click empty cells to add your work. Hover filled images to remove or view fullscreen.</p>
-  <div class="gallery-wrap sr-scale" id="gallery"></div>
+  <p class="designs-intro sr">Graphic design work. More coming soon.</p>
+  <div class="gallery-wrap sr-scale" id="gallery">
+    <!-- kakaa -->
+    <div class="g-slot has-img" id="gslot-kaka">
+      <img src="kakaa.png" alt="Kaká — The Beautiful One">
+      <div class="g-overlay"><div class="g-label">View fullscreen ↗</div></div>
+    </div>
+    <!-- working on more — spans 2 cols -->
+    <div class="g-slot" style="grid-column:span 2;cursor:default;background:#0a0c12;border:1px dashed rgba(255,255,255,.06);">
+      <div class="g-empty" style="transform:none;">
+        <div style="font-family:var(--display);font-size:2rem;color:rgba(255,255,255,.08);letter-spacing:.05em;">WORKING ON MORE</div>
+        <div style="font-size:.55rem;letter-spacing:.2em;color:var(--muted);text-transform:uppercase;margin-top:.4rem;">more designs coming soon</div>
+      </div>
+    </div>
+  </div>
 </section>
 
 <!-- CONTACT SECTION -->
@@ -513,8 +526,7 @@ input[type=file]{display:none;}
   <img id="lb-img" src="" alt="">
 </div>
 
-<!-- hidden file inputs -->
-<input type="file" id="fileInput" accept="image/*">
+<!-- hidden file input for project posters -->
 <input type="file" id="projFileInput" accept="image/*">
 
 <script>
@@ -624,59 +636,9 @@ function lbFullscreen() {
 document.getElementById('lb').addEventListener('click', e => { if (e.target === e.currentTarget) closeLb(); });
 document.addEventListener('keydown', e => { if (e.key === 'Escape') { closeLb(); closePanel(); } });
 
-// GALLERY (designs) — add / remove / fullscreen
-const gallery = document.getElementById('gallery');
-const fileInput = document.getElementById('fileInput');
-let activeGallerySlot = null;
-const savedGallery = JSON.parse(localStorage.getItem('amoghGallery2') || '{}');
-
-for (let i = 0; i < 6; i++) {
-  const slot = document.createElement('div');
-  slot.className = 'g-slot'; slot.dataset.i = i;
-
-  const img = document.createElement('img'); img.alt = 'Design ' + (i+1);
-  const overlay = document.createElement('div'); overlay.className = 'g-overlay';
-  const label = document.createElement('div'); label.className = 'g-label'; label.textContent = 'View fullscreen ↗';
-  overlay.appendChild(label);
-
-  const empty = document.createElement('div'); empty.className = 'g-empty';
-  empty.innerHTML = '<div class="g-plus">+</div><div class="g-hint">Add design</div>';
-
-  // remove button
-  const removeBtn = document.createElement('button');
-  removeBtn.className = 'g-remove'; removeBtn.textContent = '✕ Remove';
-  removeBtn.addEventListener('click', ev => {
-    ev.stopPropagation();
-    img.src = ''; slot.classList.remove('has-img');
-    delete savedGallery[i];
-    localStorage.setItem('amoghGallery2', JSON.stringify(savedGallery));
-  });
-
-  slot.appendChild(img); slot.appendChild(overlay); slot.appendChild(empty); slot.appendChild(removeBtn);
-  gallery.appendChild(slot);
-
-  if (savedGallery[i]) { img.src = savedGallery[i]; slot.classList.add('has-img'); }
-
-  slot.addEventListener('click', () => {
-    if (slot.classList.contains('has-img')) {
-      openLb(img.src);
-    } else {
-      activeGallerySlot = slot; fileInput.click();
-    }
-  });
-}
-
-fileInput.addEventListener('change', e => {
-  const f = e.target.files[0]; if (!f || !activeGallerySlot) return;
-  const r = new FileReader();
-  r.onload = ev => {
-    const src = ev.target.result;
-    activeGallerySlot.querySelector('img').src = src;
-    activeGallerySlot.classList.add('has-img');
-    savedGallery[activeGallerySlot.dataset.i] = src;
-    localStorage.setItem('amoghGallery2', JSON.stringify(savedGallery));
-  };
-  r.readAsDataURL(f); fileInput.value = '';
+// GALLERY — kaka slot fullscreen
+document.getElementById('gslot-kaka').addEventListener('click', () => {
+  openLb('kakaa.png');
 });
 
 // PROJECT POSTERS — Revolt Ride, Technoxian, UrjaXLoom
