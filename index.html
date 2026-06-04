@@ -489,11 +489,16 @@ input[type=file]{display:none;}
       <img src="kakaa.png" alt="Kaká — The Beautiful One">
       <div class="g-overlay"><div class="g-label">View fullscreen ↗</div></div>
     </div>
-    <!-- working on more — spans 2 cols -->
-    <div class="g-slot" style="grid-column:span 2;cursor:default;background:#0a0c12;border:1px dashed rgba(255,255,255,.06);">
+    <!-- ocean -->
+    <div class="g-slot has-img" id="gslot-ocean">
+      <img src="oceann.png" alt="Ex Undis, Anima — From the Waves, the Soul">
+      <div class="g-overlay"><div class="g-label">View fullscreen ↗</div></div>
+    </div>
+    <!-- working on more -->
+    <div class="g-slot" style="cursor:default;background:#0a0c12;border:1px dashed rgba(255,255,255,.06);">
       <div class="g-empty" style="transform:none;">
-        <div style="font-family:var(--display);font-size:2rem;color:rgba(255,255,255,.08);letter-spacing:.05em;">WORKING ON MORE</div>
-        <div style="font-size:.55rem;letter-spacing:.2em;color:var(--muted);text-transform:uppercase;margin-top:.4rem;">more designs coming soon</div>
+        <div style="font-family:var(--display);font-size:2rem;color:rgba(255,255,255,.08);letter-spacing:.05em;">MORE SOON</div>
+        <div style="font-size:.55rem;letter-spacing:.2em;color:var(--muted);text-transform:uppercase;margin-top:.4rem;">working on more designs</div>
       </div>
     </div>
   </div>
@@ -639,6 +644,9 @@ document.addEventListener('keydown', e => { if (e.key === 'Escape') { closeLb();
 // GALLERY — kaka slot fullscreen
 document.getElementById('gslot-kaka').addEventListener('click', () => {
   openLb('kakaa.png');
+});
+document.getElementById('gslot-ocean').addEventListener('click', () => {
+  openLb('oceann.png');
 });
 
 // PROJECT POSTERS — Revolt Ride, Technoxian, UrjaXLoom
